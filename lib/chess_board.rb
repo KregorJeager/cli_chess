@@ -11,9 +11,49 @@ class ChessBoard
     @board.each_index do |i|
       line = []
       @board[i].each do |j|
-        line << (j.nil? ? '[  ]' : j.character)
+        line << (j.nil? ? '[  ]' : "[#{j.character} ]")
       end
       puts "#{i}#{line.join('')}"
     end
+  end
+
+  def set_to_default
+    @board = Array.new(8) { Array.new(8) { nil } }
+    white = white_default_values
+    black = black_defaul_values
+    init_pieces(white, 'white')
+    init_pieces(black, 'black')
+  end
+
+  private
+
+  def init_pieces(values, team)
+    values.each_index do |i|
+      values[i].each_key do |key|
+        values[i][key].each { |pos| @board[pos[0]][pos[1]] = key.new(team) }
+      end
+    end
+  end
+
+  def white_default_values
+    pawns = Array.new(8)
+    pawns.each_index { |i| pawns[i] = [1, i] }
+    [{ Pawn => pawns },
+     { Rook => [[0, 0], [0, 7]] },
+     { Horse => [[0, 1], [0, 6]] },
+     { Bishop => [[0, 2], [0, 5]] },
+     { King => [[0, 3]] },
+     { Queen => [[0, 4]] }]
+  end
+
+  def black_defaul_values
+    pawns = Array.new(8)
+    pawns.each_index { |i| pawns[i] = [6, i] }
+    [{ Pawn => pawns },
+     { Rook => [[7, 0], [7, 7]] },
+     { Horse => [[7, 1], [7, 6]] },
+     { Bishop => [[7, 2], [7, 5]] },
+     { King => [[7, 3]] },
+     { Queen => [[7, 4]] }]
   end
 end
