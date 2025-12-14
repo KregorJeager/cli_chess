@@ -25,6 +25,11 @@ class ChessBoard
     init_pieces(black, 'black')
   end
 
+  def move(cur, new)
+    @board[new[0]][new[1]] = @board[cur[0]][cur[1]]
+    @board[cur[0]][cur[1]] = nil
+  end
+
   private
 
   def init_pieces(values, team)
