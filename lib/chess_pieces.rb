@@ -4,8 +4,9 @@
 class Pawn
   attr_reader :role, :character
 
-  def initialize
+  def initialize(team)
     @role = 'pawn'
+    @team = team
     @character = "\u265F "
   end
 end
