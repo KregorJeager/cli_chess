@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 
+# Have methods that determines of moves to be made are valid
 module ChessCop
   def get_path_positions(curr, new)
     orientation = diagonal?(curr, new)
