@@ -12,7 +12,7 @@ module ChessCop
     temp = curr
     until temp[axis] == new[axis]
       count += 1
-      temp = axis.zero? ? [curr[0] + count * polarity, curr[1]] : [curr[1], curr[1] + count * polarity]
+      temp = axis.zero? ? [curr[0] + count * polarity, curr[1]] : [curr[0], curr[1] + count * polarity]
       path << temp
     end
     path
