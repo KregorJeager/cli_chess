@@ -8,6 +8,20 @@ describe ChessCop do
   # A method that calculates all y,x positions that a piece will travel and return
   #  them in an array.
   describe '#get_path_positions' do
+    describe 'out of board' do
+      xit 'returns nil when curr pos is out of board' do
+        curr_pos = [0, 8]
+        new_pos = [3, 3]
+        output = nil
+        expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
+      end
+      xit 'returns nil when new_pos is out of board' do
+        curr_pos = [0, 4]
+        new_pos = [8, 3]
+        output = nil
+        expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
+      end
+    end
     describe 'straight movevement' do
       context 'when moving to the right' do
         it 'return an array of y,x positions from left to right' do
@@ -50,35 +64,37 @@ describe ChessCop do
     end
 
     describe 'diagonal movement' do
-      xit 'returns nil when not 45 degree diagonal' do
+      it 'returns nil when not 45 degree diagonal' do
         curr_pos = [1, 1]
         new_pos = [2, 4]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(nil)
       end
-      xit 'moving diagonally upwards to the left' do
+      it 'moving diagonally upwards to the left' do
         curr_pos = [7, 5]
         new_pos = [4, 2]
-        output = [[6, 4], [5, 3], [4, 3]]
+        output = [[6, 4], [5, 3], [4, 2]]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
-      xit 'moving diagonally upward to the right' do
+      it 'moving diagonally upward to the right' do
         curr_pos = [7, 2]
         new_pos = [4, 5]
         output = [[6, 3], [5, 4], [4, 5]]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
-      xit 'moving diagonally downward to the left' do
+      it 'moving diagonally downward to the left' do
         curr_pos = [0, 4]
         new_pos = [3, 1]
         output = [[1, 3], [2, 2], [3, 1]]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
-      xit 'moving diagonally downward to the right' do
+      it 'moving diagonally downward to the right' do
         curr_pos = [0, 0]
         new_pos = [4, 4]
         output = [[1, 1], [2, 2], [3, 3], [4, 4]]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
+    end
+    describe 'horse movement' do
     end
   end
 end
