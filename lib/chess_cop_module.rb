@@ -8,11 +8,12 @@ module ChessCop
     axis = curr[0] == new[0] ? 1 : 0 # find the axis where it moves
     polarity = curr[axis] > new[axis] ? -1 : 1 # find direction of the move
     path = [] # array of positions the move passes thru
-    temp = curr
     count = 0
+    temp = curr
     until temp[axis] == new[axis]
       count += 1
-      path << temp[axis + (count * polarity)]
+      temp = axis.zero? ? [curr[0] + count * polarity, curr[1]] : [curr[1], curr[1] + count * polarity]
+      path << temp
     end
     path
   end
