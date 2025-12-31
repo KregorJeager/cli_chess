@@ -15,8 +15,6 @@ describe GameRound do
     end
 
     describe '#make_move' do
-      it '' do
-      end
     end
   end
 end
