@@ -9,13 +9,13 @@ describe ChessCop do
   #  them in an array.
   describe '#get_path_positions' do
     describe 'out of board' do
-      xit 'returns nil when curr pos is out of board' do
+      it 'returns nil when curr pos is out of board' do
         curr_pos = [0, 8]
         new_pos = [3, 3]
         output = nil
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
-      xit 'returns nil when new_pos is out of board' do
+      it 'returns nil when new_pos is out of board' do
         curr_pos = [0, 4]
         new_pos = [8, 3]
         output = nil
@@ -93,8 +93,6 @@ describe ChessCop do
         output = [[1, 1], [2, 2], [3, 3], [4, 4]]
         expect(cop.get_path_pos(curr_pos, new_pos)).to eq(output)
       end
-    end
-    describe 'horse movement' do
     end
   end
 end
