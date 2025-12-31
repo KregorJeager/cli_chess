@@ -1,7 +1,9 @@
 # frozen_string_literal: false
 
+require 'lib/chess_cop'
 # board
 class ChessBoard
+  include ChessCop
   def initialize
     @board = Array.new(8) { Array.new(8) { nil } }
   end
