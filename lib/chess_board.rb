@@ -33,7 +33,7 @@ class ChessBoard
   end
 
   def valid?(cur, new)
-    p 'start'
+    return nil if @board[cur[0]][cur[1]].nil?
     return pawn(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
 
     path = get_path_pos(cur, new)
@@ -46,13 +46,10 @@ class ChessBoard
 
   def pawn(cur, new, piece)
     team = piece.team == 'white' ? 1 : -1
-    if piece.first_move == true
-      p 'truea'
-      p new
-      p [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new)
+    if cur[0] == 1 && team == 1 || cur[0] == 6 && team == -1
+      [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new)
     else
-      p 'false1'
-      p [[cur[0] + 1 * team, cur[1]]].include?(new)
+      [[cur[0] + 1 * team, cur[1]]].include?(new)
     end
   end
 
