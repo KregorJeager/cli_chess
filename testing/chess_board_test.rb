@@ -24,5 +24,13 @@ a = ChessBoard.new
 a.print_board
 a.set_to_default
 a.print_board
-a.move([1, 1], [3, 1])
+a.move([1, 0], [3, 0])
 a.print_board
+p a.valid?([3, 0], [6, 0])
+
+p a.valid?([3, 0], [4, 0])
+p a.valid?([3, 0], [5, 0])
+p a.valid?([1, 3], [3, 3])
+
+a.print_board
+p a.valid?([7, 6], [5, 5])
