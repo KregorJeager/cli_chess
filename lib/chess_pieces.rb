@@ -2,12 +2,13 @@
 
 # Pawn
 class Pawn
-  attr_reader :role, :character
+  attr_reader :role, :character, :team, :first_move
 
   def initialize(team)
     @role = 'pawn'
     @team = team
     @character = team == 'white' ? "\u2659" : "\u265F"
+    @first_move = true
   end
 
   def available_steps(pos)
