@@ -33,12 +33,16 @@ class ChessBoard
   end
 
   def valid?(cur, new)
-    return false if curr == new
+    return false if cur == new
     return false if new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
     return false if @board[cur[0]][cur[1]].nil?
     return pawn(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
 
+    return knight(cur, new) if @board[cur[0]][cur[1]].role == 'horse'
+
     path = get_path_pos(cur, new)
+    return false if path.nil?
+
     stat = true
     path.each { |pos| stat = false unless @board[pos[0]][pos[1]].nil? }
     stat
@@ -56,6 +60,15 @@ class ChessBoard
   end
 
   def knight(cur, new)
+    p 'horse'
+    [[cur[0] - 1, cur[1] - 2],
+     [cur[0] + 1, cur[1] - 2],
+     [cur[0] - 2, cur[1] - 1],
+     [cur[0] + 2, cur[1] - 1],
+     [cur[0] + 1, cur[1] + 2],
+     [cur[0] - 1, cur[1] + 2],
+     [cur[0] - 2, cur[1] + 1],
+     [cur[0] + 2, cur[1] + 1]].include?(new) && @board[new[0]][new[1]].nil?
   end
 
   def init_pieces(values, team)
