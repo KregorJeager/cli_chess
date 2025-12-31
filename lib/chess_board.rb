@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require 'lib/chess_cop'
+require './lib/chess_cop_module'
 # board
 class ChessBoard
   include ChessCop
@@ -62,5 +62,12 @@ class ChessBoard
      { Bishop => [[7, 2], [7, 5]] },
      { King => [[7, 3]] },
      { Queen => [[7, 4]] }]
+  end
+
+  def valid?(cur, new)
+    path = get_path_pos(cur, new)
+    stat = true
+    path.each { |pos| stat = false unless @board[pos[0], pos[1]].nil? }
+    stat
   end
 end
