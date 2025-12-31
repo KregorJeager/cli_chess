@@ -32,7 +32,29 @@ class ChessBoard
     @board[cur[0]][cur[1]] = nil
   end
 
+  def valid?(cur, new)
+    p 'start'
+    return pawn(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
+
+    path = get_path_pos(cur, new)
+    stat = true
+    path.each { |pos| stat = false unless @board[pos[0]][pos[1]].nil? }
+    stat
+  end
+
   private
+
+  def pawn(cur, new, piece)
+    team = piece.team == 'white' ? 1 : -1
+    if piece.first_move == true
+      p 'truea'
+      p new
+      p [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new)
+    else
+      p 'false1'
+      p [[cur[0] + 1 * team, cur[1]]].include?(new)
+    end
+  end
 
   def init_pieces(values, team)
     values.each_index do |i|
@@ -62,12 +84,5 @@ class ChessBoard
      { Bishop => [[7, 2], [7, 5]] },
      { King => [[7, 3]] },
      { Queen => [[7, 4]] }]
-  end
-
-  def valid?(cur, new)
-    path = get_path_pos(cur, new)
-    stat = true
-    path.each { |pos| stat = false unless @board[pos[0], pos[1]].nil? }
-    stat
   end
 end
