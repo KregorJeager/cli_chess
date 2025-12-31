@@ -4,6 +4,7 @@
 module ChessCop
   def get_path_pos(curr, new)
     return curr if curr == new
+    return nil if new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
 
     if curr[0] == new[0] || curr[1] == new[1]
       axis = curr[0] == new[0] ? 1 : 0 # find the axis where it moves
