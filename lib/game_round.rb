@@ -23,6 +23,18 @@ class GameRound
     puts 'Instruction goes here'
   end
 
+  def make_move
+    stat = false
+    loop do
+      filtered = filter_input(gets.chomp)
+      stat = @chess_board.valid?(filtered)
+      if stat == true
+        @chess_board.make_move(filtered[0], filter_input[1])
+        break
+      end
+    end
+  end
+
   def filter_input(input)
     if coordinate_format?(input)
       input = input.split('|')
