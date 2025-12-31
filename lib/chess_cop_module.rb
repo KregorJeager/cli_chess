@@ -8,6 +8,24 @@ module ChessCop
 
     return straight_move(curr, new) if curr[0] == new[0] || curr[1] == new[1]
 
+    diagonal_move(curr, new)
+  end
+
+  def straight_move(curr, new)
+    axis = curr[0] == new[0] ? 1 : 0 # find the axis where it moves
+    polarity = curr[axis] > new[axis] ? -1 : 1 # find direction of the move
+    path = [] # array of positions the move passes thru
+    count = 0
+    temp = curr
+    until temp[axis] == new[axis]
+      count += 1
+      temp = axis.zero? ? [curr[0] + count * polarity, curr[1]] : [curr[0], curr[1] + count * polarity]
+      path << temp
+    end
+    path
+  end
+
+  def diagonal_move(curr, new)
     x_polarity = curr[1] > new[1] ? -1 : 1
     y_polarity = curr[0] > new[0] ? -1 : 1
     count = 0
@@ -23,19 +41,5 @@ module ChessCop
       break if new == [curr[0] + count * y_polarity, curr[1] + count * x_polarity]
     end
     diag_temp
-  end
-
-  def straight_move(curr, new)
-    axis = curr[0] == new[0] ? 1 : 0 # find the axis where it moves
-    polarity = curr[axis] > new[axis] ? -1 : 1 # find direction of the move
-    path = [] # array of positions the move passes thru
-    count = 0
-    temp = curr
-    until temp[axis] == new[axis]
-      count += 1
-      temp = axis.zero? ? [curr[0] + count * polarity, curr[1]] : [curr[0], curr[1] + count * polarity]
-      path << temp
-    end
-    path
   end
 end
