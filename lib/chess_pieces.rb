@@ -28,7 +28,7 @@ end
 
 # Rook
 class Rook
-  attr_reader :role, :character
+  attr_reader :role, :character, :team
 
   def initialize(team)
     @role = 'rook'
@@ -39,7 +39,7 @@ end
 
 # Horse
 class Horse
-  attr_reader :role, :character
+  attr_reader :role, :character, :team
 
   def initialize(team)
     @role = 'horse'
@@ -50,7 +50,7 @@ end
 
 # Bishop
 class Bishop
-  attr_reader :role, :character
+  attr_reader :role, :character, :team
 
   def initialize(team)
     @role = 'bishop'
@@ -61,7 +61,7 @@ end
 
 # King
 class King
-  attr_reader :role, :character
+  attr_reader :role, :character, :team
 
   def initialize(team)
     @role = 'king'
@@ -72,7 +72,7 @@ end
 
 # Queen
 class Queen
-  attr_reader :role, :character
+  attr_reader :role, :character, :team
 
   def initialize(team)
     @role = 'queen'
