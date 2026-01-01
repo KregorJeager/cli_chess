@@ -44,7 +44,10 @@ class ChessBoard
     return false if path.nil?
 
     stat = true
-    path.each { |pos| stat = false unless @board[pos[0]][pos[1]].nil? }
+    path.each do |pos|
+      stat = false unless @board[pos[0]][pos[1]].nil? ||
+                          @board[pos[0]][pos[1]].team != @board[cur[0]][cur[0]].team
+    end
     stat
   end
 
