@@ -23,6 +23,15 @@ class GameRound
     puts 'Instruction goes here'
   end
 
+  def game_loop
+    @chess_board.set_to_default
+    turn = 'white'
+    loop do
+      make_move(turn)
+      turn = turn == 'white' ? 'black' : 'white'
+    end
+  end
+
   def make_move(team)
     stat = false
     loop do
@@ -33,7 +42,7 @@ class GameRound
       own_piece = team == @chess_board.board[filtered[0][0]][filtered[0][1]].team if stat
       next unless stat == true && own_piece
 
-      @chess_board.make_move(filtered[0], filtered[1])
+      @chess_board.move(filtered[0], filtered[1])
 
       break
     end
