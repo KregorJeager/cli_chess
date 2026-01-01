@@ -23,15 +23,19 @@ class GameRound
     puts 'Instruction goes here'
   end
 
-  def make_move
+  def make_move(team)
     stat = false
     loop do
+      @chess_board.print_board
+      print "[#{team} to move] input here ->"
       filtered = filter_input(gets.chomp)
-      stat = @chess_board.valid?(filtered)
-      if stat == true
-        @chess_board.make_move(filtered[0], filter_input[1])
-        break
-      end
+      stat = @chess_board.valid?(filtered[0], filtered[1])
+      own_piece = team == @chess_board.board[filtered[0][0]][filtered[0][1]].team if stat
+      next unless stat == true && own_piece
+
+      @chess_board.make_move(filtered[0], filtered[1])
+
+      break
     end
   end
 
@@ -40,6 +44,7 @@ class GameRound
       input = input.split('|')
       return [input[0].split(',').map!(&:to_i), input[1].split(',').map!(&:to_i)]
     end
+    p input
     input
   end
 
