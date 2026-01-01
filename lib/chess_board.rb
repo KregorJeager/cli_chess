@@ -53,9 +53,17 @@ class ChessBoard
   def pawn(cur, new, piece)
     team = piece.team == 'white' ? 1 : -1
     if cur[0] == 1 && team == 1 || cur[0] == 6 && team == -1
-      [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new)
+      [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new) &&
+        @board[cur[0] + 2 * team][cur[1]].nil? ||
+        @board[cur[0] + 2 * team][cur[1]].team != @board[cur[0]][cur[1]].team &&
+          @board[cur[0] + 1 * team][cur[1]].nil? ||
+        @board[cur[0] + 1 * team][cur[1]].team != @board[cur[0]][cur[1]].team
     else
-      [[cur[0] + 1 * team, cur[1]]].include?(new)
+      if [[cur[0] + 1 * team, cur[1]]].include?(new)
+        return @board[cur[0] + 1 * team][cur[1]].nil? || @board[cur[0] + 1 * team][cur[1]].team != @board[cur[0]][cur[1]].team
+      end
+
+      false
     end
   end
 
