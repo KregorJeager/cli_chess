@@ -1,6 +1,7 @@
 # frozen_string_literal: false
 
 require './lib/chess_cop_module'
+require './lib/chess_pieces'
 # board
 class ChessBoard
   include ChessCop
