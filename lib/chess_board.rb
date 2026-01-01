@@ -68,7 +68,8 @@ class ChessBoard
      [cur[0] + 1, cur[1] + 2],
      [cur[0] - 1, cur[1] + 2],
      [cur[0] - 2, cur[1] + 1],
-     [cur[0] + 2, cur[1] + 1]].include?(new) && @board[new[0]][new[1]].nil?
+     [cur[0] + 2, cur[1] + 1]].include?(new) &&
+      (@board[new[0]][new[1]].nil? || @board[cur[0]][cur[1]].team != @board[new[0]][new[1]].team)
   end
 
   def init_pieces(values, team)
