@@ -4,6 +4,8 @@ require './lib/chess_cop_module'
 # board
 class ChessBoard
   include ChessCop
+  attr_accessor :board
+
   def initialize
     @board = Array.new(8) { Array.new(8) { nil } }
   end
