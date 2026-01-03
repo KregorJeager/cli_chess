@@ -79,9 +79,7 @@ class ChessBoard
   def rook(cur, new)
     path = straight_move(cur, new)
     team = @board[cur[0]][cur[1]]
-    result = path_clear?(path, team)
-    p "path_clear?: #{result})}"
-    result
+    path_clear?(path, team)
   end
 
   def pawn_revamp(cur, new, piece)
