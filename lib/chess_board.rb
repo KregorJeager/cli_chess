@@ -43,28 +43,18 @@ class ChessBoard
     role = piece.role
     case role
     when 'pawn'
-      return pawn_revamp(cur, new, piece)
+      pawn_revamp(cur, new, piece)
     when 'horse'
-      return knight(cur, new)
+      knight(cur, new)
     when 'rook'
       rook(cur, new)
     when 'bishop'
-      return bishop(cur, new)
+      bishop(cur, new)
     when 'queen'
-      return queen(cur, new)
+      queen(cur, new)
     else
       'Piece not found'
     end
-
-    path = get_path_pos(cur, new)
-    return false if path.nil?
-
-    stat = true
-    path.each do |pos|
-      stat = false unless @board[pos[0]][pos[1]].nil? ||
-                          @board[pos[0]][pos[1]].team != @board[pos[0]][pos[0]].team
-    end
-    stat
   end
 
   private
