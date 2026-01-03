@@ -50,6 +50,8 @@ class ChessBoard
       rook(cur, new)
     when 'bishop'
       return bishop(cur, new)
+    when 'queen'
+      return queen(cur, new)
     else
       'Piece not found'
     end
@@ -100,11 +102,12 @@ class ChessBoard
   def queen(cur, new)
     path = straight_move(cur, new)
     path = diagonal_move(cur, new) if path.nil?
+    p path
     if path.nil?
       puts 'queen move not found'
       return false
     end
-    team = @board[cur[0]][cur[1]]
+    team = @board[cur[0]][cur[1]].team
     path_clear?(path, team)
   end
 
