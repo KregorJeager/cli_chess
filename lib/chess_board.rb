@@ -48,6 +48,8 @@ class ChessBoard
       return knight(cur, new)
     when 'rook'
       rook(cur, new)
+    when 'bishop'
+      return bishop(cur, new)
     else
       'Piece not found'
     end
@@ -78,6 +80,12 @@ class ChessBoard
 
   def rook(cur, new)
     path = straight_move(cur, new)
+    team = @board[cur[0]][cur[1]]
+    path_clear?(path, team)
+  end
+
+  def bishop(cur, new)
+    path = diagonal_move(cur, new)
     team = @board[cur[0]][cur[1]]
     path_clear?(path, team)
   end
