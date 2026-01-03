@@ -36,15 +36,13 @@ class ChessBoard
   end
 
   def valid?(cur, new)
-    return false if cur == new
-    return false if new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
-    return false if @board[cur[0]][cur[1]].nil?
-    return pawn_revamp(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
+    return false if cur == new || @board[cur[0]][cur[1]].nil? ||
+                    new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
 
-    return knight(cur, new) if @board[cur[0]][cur[1]].role == 'horse'
-
-    p "#rook(cur,new) => #{rook(cur, new)}" if @board[cur[0]][cur[1]].role == 'rook'
-    return rook(cur, new) if @board[cur[0]][cur[1]].role == 'rook'
+    piece = @board[cur[0]][cur[1]]
+    return pawn_revamp(cur, new, piece) if piece.role == 'pawn'
+    return knight(cur, new) if piece.role == 'horse'
+    return rook(cur, new) if piece.role == 'rook'
 
     path = get_path_pos(cur, new)
     return false if path.nil?
