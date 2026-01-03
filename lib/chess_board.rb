@@ -43,6 +43,9 @@ class ChessBoard
 
     return knight(cur, new) if @board[cur[0]][cur[1]].role == 'horse'
 
+    p "#rook(cur,new) => #{rook(cur, new)}" if @board[cur[0]][cur[1]].role == 'rook'
+    return rook(cur, new) if @board[cur[0]][cur[1]].role == 'rook'
+
     path = get_path_pos(cur, new)
     return false if path.nil?
 
@@ -55,6 +58,25 @@ class ChessBoard
   end
 
   private
+
+  def path_clear?(path, team)
+    p "path: #{path}"
+    new = path.pop.at(0)
+    return false unless @board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team
+
+    path.each do |pos|
+      return false unless @board[pos[0]][pos[1]].nil?
+    end
+    true
+  end
+
+  def rook(cur, new)
+    path = straight_move(cur, new)
+    team = @board[cur[0]][cur[1]]
+    result = path_clear?(path, team)
+    p "path_clear?: #{result})}"
+    result
+  end
 
   def pawn_revamp(cur, new, piece)
     team = piece.team == 'white' ? 1 : -1
