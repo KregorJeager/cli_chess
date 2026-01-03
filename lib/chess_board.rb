@@ -52,8 +52,10 @@ class ChessBoard
       bishop(cur, new)
     when 'queen'
       queen(cur, new)
+    when 'king'
+      king(cur, new)
     else
-      'Piece not found'
+      puts 'Piece not found'
     end
   end
 
@@ -99,6 +101,22 @@ class ChessBoard
     end
     team = @board[cur[0]][cur[1]].team
     path_clear?(path, team)
+  end
+
+  def king(cur, new)
+    stat = [[cur[0] + 1, cur[1] + 1],
+            [cur[0] + 1, cur[1]],
+            [cur[0] + 1, cur[1] - 1],
+            [cur[0], cur[1] - 1],
+            [cur[0], cur[1] + 1],
+            [cur[0] - 1, cur[1] + 1],
+            [cur[0] - 1, cur[1]],
+            [cur[0] - 1, cur[1] - 1]].include?(new) &&
+           (@board[new[0]][new[1]].nil? || @board[cur[0]][cur[1]].team != @board[new[0]][new[1]].team)
+    return true if stat
+
+    puts 'king move not found'
+    false
   end
 
   def pawn_revamp(cur, new, piece)
