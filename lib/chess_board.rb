@@ -40,9 +40,17 @@ class ChessBoard
                     new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
 
     piece = @board[cur[0]][cur[1]]
-    return pawn_revamp(cur, new, piece) if piece.role == 'pawn'
-    return knight(cur, new) if piece.role == 'horse'
-    return rook(cur, new) if piece.role == 'rook'
+    role = piece.role
+    case role
+    when 'pawn'
+      return pawn_revamp(cur, new, piece)
+    when 'horse'
+      return knight(cur, new)
+    when 'rook'
+      rook(cur, new)
+    else
+      'Piece not found'
+    end
 
     path = get_path_pos(cur, new)
     return false if path.nil?
@@ -50,7 +58,7 @@ class ChessBoard
     stat = true
     path.each do |pos|
       stat = false unless @board[pos[0]][pos[1]].nil? ||
-                          @board[pos[0]][pos[1]].team != @board[cur[0]][cur[0]].team
+                          @board[pos[0]][pos[1]].team != @board[pos[0]][pos[0]].team
     end
     stat
   end
