@@ -39,7 +39,7 @@ class ChessBoard
     return false if cur == new
     return false if new[0] > 7 || new[0].negative? || new[1] > 7 || new[1].negative?
     return false if @board[cur[0]][cur[1]].nil?
-    return pawn(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
+    return pawn_revamp(cur, new, @board[cur[0]][cur[1]]) if @board[cur[0]][cur[1]].role == 'pawn'
 
     return knight(cur, new) if @board[cur[0]][cur[1]].role == 'horse'
 
@@ -56,21 +56,29 @@ class ChessBoard
 
   private
 
-  def pawn(cur, new, piece)
+  def pawn_revamp(cur, new, piece)
     team = piece.team == 'white' ? 1 : -1
-    if cur[0] == 1 && team == 1 || cur[0] == 6 && team == -1
-      [[cur[0] + 2 * team, cur[1]], [cur[0] + 1 * team, cur[1]]].include?(new) &&
-        @board[cur[0] + 2 * team][cur[1]].nil? ||
-        @board[cur[0] + 2 * team][cur[1]].team != @board[cur[0]][cur[1]].team &&
-          @board[cur[0] + 1 * team][cur[1]].nil? ||
-        @board[cur[0] + 1 * team][cur[1]].team != @board[cur[0]][cur[1]].team
-    else
-      if [[cur[0] + 1 * team, cur[1]]].include?(new)
-        return @board[cur[0] + 1 * team][cur[1]].nil? || @board[cur[0] + 1 * team][cur[1]].team != @board[cur[0]][cur[1]].team
-      end
+    pawn_next_moves(cur, team).include?(new)
+  end
 
-      false
-    end
+  def pawn_next_moves(cur, team)
+    moves = []
+    moves << [cur[0] + 1 * team, cur[1]] if @board[cur[0] + 1 * team][cur[1]].nil?
+    moves << [cur[0] + 1 * team, cur[1] - 1] if enemy?([cur[0] + 1 * team, cur[1] - 1], team)
+    moves << [cur[0] + 1 * team, cur[1] + 1] if enemy?([cur[0] + 1 * team, cur[1] + 1], team)
+    moves << [cur[0] + 2 * team, cur[1]] if pawn_1stmove(cur, team) && @board[cur[0] + 1 * team][cur[1]].nil?
+    moves
+  end
+
+  def enemy?(pos, team)
+    !@board[pos[0]][ pos[1]].nil? && @board[pos[0]][ pos[1]].team != team
+  end
+
+  def pawn_1stmove(cur, team)
+    return true if cur[0] == 1 && team ==  1
+    return true if cur[0] == 6 && team == -1
+
+    false
   end
 
   def knight(cur, new)
