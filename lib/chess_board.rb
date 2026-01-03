@@ -68,7 +68,6 @@ class ChessBoard
   private
 
   def path_clear?(path, team)
-    p "path: #{path}"
     new = path.pop.at(0)
     return false unless @board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team
 
@@ -80,12 +79,20 @@ class ChessBoard
 
   def rook(cur, new)
     path = straight_move(cur, new)
+    if path.nil?
+      puts 'rook move not found'
+      return false
+    end
     team = @board[cur[0]][cur[1]]
     path_clear?(path, team)
   end
 
   def bishop(cur, new)
     path = diagonal_move(cur, new)
+    if path.nil?
+      puts 'bishop move not found'
+      return false
+    end
     team = @board[cur[0]][cur[1]]
     path_clear?(path, team)
   end
