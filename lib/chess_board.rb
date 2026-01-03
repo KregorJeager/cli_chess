@@ -97,9 +97,24 @@ class ChessBoard
     path_clear?(path, team)
   end
 
+  def queen(cur, new)
+    path = straight_move(cur, new)
+    path = diagonal_move(cur, new) if path.nil?
+    if path.nil?
+      puts 'queen move not found'
+      return false
+    end
+    team = @board[cur[0]][cur[1]]
+    path_clear?(path, team)
+  end
+
   def pawn_revamp(cur, new, piece)
     team = piece.team == 'white' ? 1 : -1
-    pawn_next_moves(cur, team).include?(new)
+    stat = pawn_next_moves(cur, team).include?(new)
+    return true if stat
+
+    puts 'pawn move not found'
+    false
   end
 
   def pawn_next_moves(cur, team)
@@ -123,16 +138,19 @@ class ChessBoard
   end
 
   def knight(cur, new)
-    p 'horse'
-    [[cur[0] - 1, cur[1] - 2],
-     [cur[0] + 1, cur[1] - 2],
-     [cur[0] - 2, cur[1] - 1],
-     [cur[0] + 2, cur[1] - 1],
-     [cur[0] + 1, cur[1] + 2],
-     [cur[0] - 1, cur[1] + 2],
-     [cur[0] - 2, cur[1] + 1],
-     [cur[0] + 2, cur[1] + 1]].include?(new) &&
-      (@board[new[0]][new[1]].nil? || @board[cur[0]][cur[1]].team != @board[new[0]][new[1]].team)
+    stat = [[cur[0] - 1, cur[1] - 2],
+            [cur[0] + 1, cur[1] - 2],
+            [cur[0] - 2, cur[1] - 1],
+            [cur[0] + 2, cur[1] - 1],
+            [cur[0] + 1, cur[1] + 2],
+            [cur[0] - 1, cur[1] + 2],
+            [cur[0] - 2, cur[1] + 1],
+            [cur[0] + 2, cur[1] + 1]].include?(new) &&
+           (@board[new[0]][new[1]].nil? || @board[cur[0]][cur[1]].team != @board[new[0]][new[1]].team)
+    return true if stat
+
+    puts 'horse move not found'
+    false
   end
 
   def init_pieces(values, team)
