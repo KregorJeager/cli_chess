@@ -85,7 +85,7 @@ class ChessBoard
       puts 'rook move not found'
       return false
     end
-    team = @board[cur[0]][cur[1]]
+    team = @board[cur[0]][cur[1]].team
     path_clear?(path, team)
   end
 
@@ -95,7 +95,7 @@ class ChessBoard
       puts 'bishop move not found'
       return false
     end
-    team = @board[cur[0]][cur[1]]
+    team = @board[cur[0]][cur[1]].team
     path_clear?(path, team)
   end
 
