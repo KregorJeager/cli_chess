@@ -35,17 +35,25 @@ class GameRound
   def make_move(team)
     stat = false
     loop do
-      @chess_board.print_board
-      print "[#{team} to move] input here ->"
-      filtered = filter_input(gets.chomp)
-      stat = @chess_board.valid?(filtered[0], filtered[1])
-      own_piece = team == @chess_board.board[filtered[0][0]][filtered[0][1]].team if stat
-      next unless stat == true && own_piece
+      filtered = getinput(team)
+
+      next unless valid?(team, filtered)
 
       @chess_board.move(filtered[0], filtered[1])
 
       break
     end
+  end
+
+  def valid?(team, filtered)
+    stat = @chess_board.valid?(filtered[0], filtered[1])
+    team == @chess_board.board[filtered[0][0]][filtered[0][1]].team if stat
+  end
+
+  def getinput(team)
+    @chess_board.print_board
+    print "[#{team} to move] input here ->"
+    filter_input(gets.chomp)
   end
 
   def filter_input(input)
