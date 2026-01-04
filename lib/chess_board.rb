@@ -67,7 +67,7 @@ class ChessBoard
         next unless enemy?(pos, team)
 
         if valid?(pos, find_king(team))
-          puts "#{pos} checks king"
+          puts "#{pos} checks king #{find_king(team)}"
           return true
         end
       end
@@ -94,8 +94,7 @@ class ChessBoard
       return false
     end
     team = @board[cur[0]][cur[1]].team
-    p stat = path_clear?(path, team)
-    stat
+    path_clear?(path, team)
   end
 
   def bishop(cur, new)

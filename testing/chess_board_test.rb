@@ -56,3 +56,5 @@ p a.valid?([0, 7], [6, 7])
 b = ChessBoard.new
 b.set_to_default
 b.print_board
+
+p b.valid?([6, 0], [7, 3])
