@@ -79,12 +79,9 @@ class ChessBoard
 
   def path_clear?(path, team)
     new = path.pop
-    p "new: #{new}"
-    p "One1#{@board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team}"
     return false unless @board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team
 
     path.each do |pos|
-      p "two1#{@board[pos[0]][pos[1]].nil?}"
       return false unless @board[pos[0]][pos[1]].nil?
     end
     true
@@ -97,13 +94,11 @@ class ChessBoard
       return false
     end
     team = @board[cur[0]][cur[1]].team
-    p "#inside rook path: #{path}, team: #{team}"
     p stat = path_clear?(path, team)
     stat
   end
 
   def bishop(cur, new)
-    p 'bishop called'
     path = diagonal_move(cur, new)
     puts "path : #{path}"
     if path.nil?
@@ -117,7 +112,6 @@ class ChessBoard
   def queen(cur, new)
     path = straight_move(cur, new)
     path = diagonal_move(cur, new) if path.nil?
-    p path
     if path.nil?
       puts 'queen move not found'
       return false
