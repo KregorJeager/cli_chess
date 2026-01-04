@@ -78,10 +78,13 @@ class ChessBoard
   private
 
   def path_clear?(path, team)
-    new = path.pop.at(0)
+    new = path.pop
+    p "new: #{new}"
+    p "One1#{@board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team}"
     return false unless @board[new[0]][new[1]].nil? || @board[new[0]][new[1]].team != team
 
     path.each do |pos|
+      p "two1#{@board[pos[0]][pos[1]].nil?}"
       return false unless @board[pos[0]][pos[1]].nil?
     end
     true
@@ -94,7 +97,9 @@ class ChessBoard
       return false
     end
     team = @board[cur[0]][cur[1]].team
-    path_clear?(path, team)
+    p "#inside rook path: #{path}, team: #{team}"
+    p stat = path_clear?(path, team)
+    stat
   end
 
   def bishop(cur, new)

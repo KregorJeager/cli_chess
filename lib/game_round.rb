@@ -40,7 +40,7 @@ class GameRound
       filtered = filter_input(gets.chomp)
       stat = @chess_board.valid?(filtered[0], filtered[1])
       own_piece = team == @chess_board.board[filtered[0][0]][filtered[0][1]].team if stat
-      next unless stat == true && own_piece
+      next unless stat == true && own_piece && !@chess_board.check?(team)
 
       @chess_board.move(filtered[0], filtered[1])
 
