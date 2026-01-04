@@ -66,10 +66,11 @@ class ChessBoard
         pos = [i, j]
         next unless enemy?(pos, team)
 
-        if valid?(pos, find_king(team))
-          puts "#{pos} checks king #{find_king(team)}"
-          return true
-        end
+        next unless valid?(pos, find_king(team))
+
+        puts "#{pos} checks king #{find_king(team)}"
+        p "valid?(#{pos},#{find_king(team)} => #{valid?(pos, find_king(team))})"
+        return true
       end
     end
     false
