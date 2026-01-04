@@ -59,6 +59,22 @@ class ChessBoard
     end
   end
 
+  def check?(team)
+    size = (0..7)
+    size.each do |i|
+      size.each do |j|
+        pos = [i, j]
+        next unless enemy?(pos, team)
+
+        if valid?(pos, find_king(team))
+          puts "#{pos} checks king"
+          return true
+        end
+      end
+    end
+    false
+  end
+
   private
 
   def path_clear?(path, team)
@@ -82,7 +98,9 @@ class ChessBoard
   end
 
   def bishop(cur, new)
+    p 'bishop called'
     path = diagonal_move(cur, new)
+    puts "path : #{path}"
     if path.nil?
       puts 'bishop move not found'
       return false
@@ -162,6 +180,17 @@ class ChessBoard
 
     puts 'horse move not found'
     false
+  end
+
+  def find_king(team)
+    size = (0..7)
+    size.each do |i|
+      size.each do |j|
+        piece = @board[i][j]
+        next if piece.nil?
+        return [i, j] if piece.role == 'king' && piece.team == team
+      end
+    end
   end
 
   def init_pieces(values, team)
