@@ -35,13 +35,19 @@ class GameRound
   def make_move(team)
     loop do
       filtered = getinput(team)
+      cur = filtered[0]
+      new = filtered[1]
       stat = when_check(cur, new, team, @chess_board.board) if check?(team)
-      next unless valid?(team, filtered)
+      next unless valid?(team, filtered) && team == @chess_board.board[cur[0]][cur[1]].team && !stat
 
       @chess_board.move(filtered[0], filtered[1])
 
       break
     end
+  end
+
+  def check?(team)
+    @chess_board.check?(team)
   end
 
   def when_check(cur, new, team, main_board)

@@ -1,6 +1,9 @@
 require './lib/game_round'
 
 a = GameRound.new
+a.game_loop
+
+#
 
 b = Array.new(8) { Array.new(8) { 1 } }
 b_copy = a.when_check('team', b)
