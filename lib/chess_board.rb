@@ -60,17 +60,15 @@ class ChessBoard
   end
 
   def check?(team)
+    king_p = find_king(team)
     size = (0..7)
     size.each do |i|
       size.each do |j|
         pos = [i, j]
-        next unless enemy?(pos, team)
-
-        next unless valid?(pos, find_king(team))
-
-        puts "#{pos} checks king #{find_king(team)}"
-        p "valid?(#{pos},#{find_king(team)} => #{valid?(pos, find_king(team))})"
-        return true
+        if !@board[i][j].nil? && enemy?(pos, team) && valid?(pos, king_p)
+          puts "#{pos} checks king #{king_p}"
+          return true
+        end
       end
     end
     false
