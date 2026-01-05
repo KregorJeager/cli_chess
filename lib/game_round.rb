@@ -33,16 +33,22 @@ class GameRound
   end
 
   def make_move(team)
-    stat = false
     loop do
       filtered = getinput(team)
-
+      stat = when_check(cur, new, team, @chess_board.board) if check?(team)
       next unless valid?(team, filtered)
 
       @chess_board.move(filtered[0], filtered[1])
 
       break
     end
+  end
+
+  def when_check(cur, new, team, main_board)
+    board = []
+    (0..7).each { |i| board << main_board[i].map(&:clone) }
+    board.move(cur, new)
+    check?(team)
   end
 
   def valid?(team, filtered)
